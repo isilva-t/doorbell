@@ -1,0 +1,15 @@
+[Unit]
+Description=Doorbell FastAPI Service
+After=network.target sound.target
+
+[Service]
+Type=simple
+User=<user> # change <user> for your username
+SupplementaryGroups=audio
+WorkingDirectory=/home/<user>/doorbell # change <user> for your username
+ExecStart=/usr/bin/python3 -m uvicorn script:app --host 0.0.0.0 --port 8000
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
