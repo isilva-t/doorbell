@@ -42,19 +42,17 @@ Physical Setup:
 │ + Speakers   │
 └──────────────┘
 
-Previously (when working):
-Button → Master Shelly → Router → Dead Shelly (slave) → Buzzer
+Previously (when slave Shelly working):
+Button → Master Shelly → Router → Shelly (slave) → Buzzer
 
 Current solution:
 Button → Master Shelly → Router → Ubuntu PC → Audio playback
+
+When I got slave Shelly replaced, it will have redundant bell system.
+Button → Master Shelly → Router → Ubuntu PC → Audio playback
+                                → Shelly (slave) → Buzzer
+
 ```
-
-**⚠️ Important Note:**  
-This is a **temporary/backup solution**, not intended as a permanent replacement for the Shelly relay. 
-It requires a PC to be running 24/7, which is less efficient and reliable than a dedicated IoT device. 
-Use this as a quick fix while waiting for a replacement Shelly or other dedicated hardware solution.
-
-
 ## Components
 
 - **script.py** - FastAPI server with `/relay/0` endpoint
