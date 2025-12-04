@@ -8,6 +8,53 @@ Designed to serve as spare solution, to quick replace a dead slave Shelly relay 
 When a Shelly button is pressed, it sends an HTTP request to this server, which plays an audio file through the system speakers. 
 The service runs at boot without requiring user login.
 
+## Architecture
+```
+Physical Setup:
+
+┌──────────────┐
+│ Doorbell     │
+│ Button       │ (Physical press)
+└──────┬───────┘
+       │
+       │ (Wired)
+       ▼
+┌──────────────┐
+│ Master       │
+│ Shelly       │◄────┐
+│ (WiFi)       │     │
+└──────────────┘     │
+       │             │
+       │ HTTP GET    │  WiFi Network
+       │             │
+       ▼             │
+┌──────────────┐     │
+│   Router     │◄────┤
+│   (WiFi)     │     │
+└──────────────┘     │
+       │             │
+       │             │
+       ▼             │
+┌──────────────┐     │
+│ Ubuntu PC    │◄────┘
+│ (WiFi)       │
+│ Port 8000    │
+│ + Speakers   │
+└──────────────┘
+
+Previously (when working):
+Button → Master Shelly → Router → Dead Shelly (slave) → Buzzer
+
+Current solution:
+Button → Master Shelly → Router → Ubuntu PC → Audio playback
+```
+
+**⚠️ Important Note:**  
+This is a **temporary/backup solution**, not intended as a permanent replacement for the Shelly relay. 
+It requires a PC to be running 24/7, which is less efficient and reliable than a dedicated IoT device. 
+Use this as a quick fix while waiting for a replacement Shelly or other dedicated hardware solution.
+
+
 ## Components
 
 - **script.py** - FastAPI server with `/relay/0` endpoint
