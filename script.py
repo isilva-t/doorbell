@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 import subprocess
 import os
+from datetime import datetime
 
 app = FastAPI()
 
@@ -10,7 +11,13 @@ SOUND_FILE = os.path.join(SCRIPT_DIR, "bell.wav")
 
 @app.get("/relay/0")
 async def doorbell():
-    subprocess.Popen(["aplay", SOUND_FILE],
-                     stdout=subprocess.DEVNULL,
-                     stderr=subprocess.DEVNULL)
-    return {}
+    result = subprocess.Popen(["aplay", "-D", "plughw:0,0", SOUND_FILE],
+                              stdout=subprocess.PIPE,
+                              stderr=subprocess.PIPE)
+
+    return {
+        "status": "triggered",
+        "timestamp": datetime.now().isoformat(),
+        "sound_file": SOUND_FILE,
+        "pid": result.pid
+    }
