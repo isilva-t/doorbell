@@ -6,7 +6,7 @@ Designed to serve as spare solution, to quick replace a dead slave Shelly relay 
 ## Overview
 
 When a Shelly button is pressed, it sends an HTTP request to this server, which plays an audio file through the system speakers. 
-The service runs at boot without requiring user login.
+The service runs at boot, play the bell sound, without requiring user login.
 
 ## Architecture
 ```
